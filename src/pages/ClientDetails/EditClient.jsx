@@ -1,10 +1,8 @@
 import React, { useEffect, useState } from 'react'
 import { supabase } from '../../supabaseClient';
-import fetchData from './Data';
 const EditEmp = ({ show, oneValueId, toggelshow, fetchData }) => {
 
-    if (!show) return null
-
+    if (!show) return null;
     const [update, setUpdate] = useState({
         id: '',
         Name: '',
@@ -20,7 +18,7 @@ const EditEmp = ({ show, oneValueId, toggelshow, fetchData }) => {
     useEffect(() => {
         setUpdate(oneValueId)
     }, [oneValueId])
-
+    console.log(update)
     const handleUpdate = async () => {
         try {
             setloading(true)
@@ -32,10 +30,12 @@ const EditEmp = ({ show, oneValueId, toggelshow, fetchData }) => {
                 End_Date: update?.End,
                 Status: update?.Sta
             }).eq('id', update?.id).select()
+            
 
             if (error) {
                 console.log(error)
             }
+            console.log(data)
         } catch (error) {
             console.log(error)
         }
@@ -104,7 +104,7 @@ const EditEmp = ({ show, oneValueId, toggelshow, fetchData }) => {
                                         </div>
                                     </div>
                                 </fieldset>
-                                <button onClick={() => { handleUpdate(); UpdateSavebtn(); }} type="button" disabled={!write} className={`px-8 py-3 font-semibold rounded-full ${write ? "dark:bg-violet-700":"bg-slate-400"}  text-gray-800 `}>
+                                <button onClick={() => { handleUpdate(); UpdateSavebtn(); }} type="button" disabled={!write} className={`px-8 py-3 font-semibold rounded-full ${write ? "dark:bg-violet-700" : "bg-slate-400"}  text-gray-800 `}>
                                     {loading ?
                                         (<div className="w-6 h-6 flex items-center justify-center mx-auto border-2 border-dashed rounded-full animate-spin border-black"></div>
                                         )
